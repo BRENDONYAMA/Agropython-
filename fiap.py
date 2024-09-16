@@ -7,10 +7,11 @@ while True:
     opecao= input("Escolha uma opção: ")
     if opecao == "1":
         while True:
+            print("\n ======Menu Tomte======")
             print("1. Informações gerais")
             print("2. Estruta e componentes da orta")
-            print("3. Relatório")
-            print("4. Sair")
+            print("3. Médias e Desvios")
+            print("s. Sair")
             op = input("Escolha uma opção: ")
             if op == "1":
                 print("oi")
@@ -99,4 +100,7 @@ while True:
                 print(f"Num clico completo do tomate são produzidos {num_total_de_tomates:.2f} kg de tomate")
                 print(" Foi calculado todos os insumo necessários para o estabelecimento e cultura do tomate")
             elif op == "3":
+        
+                
+                
 
