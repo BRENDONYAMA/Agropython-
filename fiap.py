@@ -98,3 +98,5 @@ while True:
                 print(f"A quantidade total de água utlizada em um ciclo completo do tomate é de {Ir_total:.2f} L de água")
                 print(f"Num clico completo do tomate são produzidos {num_total_de_tomates:.2f} kg de tomate")
                 print(" Foi calculado todos os insumo necessários para o estabelecimento e cultura do tomate")
+            elif op == "3":
+
