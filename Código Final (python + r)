@@ -1,0 +1,588 @@
+from rpy2 import robjects
+
+print("O desenvolvimento desse programa teve como foco o estado de São Paulo e os dados apresentados são uma mescla de dados reais e fictícios.")
+while True:
+    print("\n ======Menu de Culturas Agrícolas======")
+    print("1. Cultura de Hortaliças - Tomate")
+    print("2. Cultura de Grãos - Café")
+    print("3. Sair")
+    op = input("Escolha uma opção: ")
+    if op == "1":
+        #vetores
+        areas_tomate = []
+        dados_tomate = {
+            "area_ut_tomate" : [],
+            "num_ruas_tomate" : [],
+            "num_mudas_tomate" : [],
+            "calcário1_tomate" : [],
+            "calcário_tomate" : [],
+            "adubo_base_tomate" : [],
+            "ir1_dia_tomate" : [],
+            "ir1_semana_tomate" : [],
+            "ir1_mes_tomate" : [],
+            "adubo_foliar_tomate" : [],
+            "fertilizante_tomate": [],
+            "fungicida_aplicação1_tomate" : [],
+            "inseticida_aplicação1_tomate": [],
+            "ir2_dia_tomate": [],
+            "ir2_semana_tomate" : [],
+            "ir2_mes_tomate" : [],
+            "ir2_total_tomate" : [],
+            "adubo_foliar_tomate" : [],
+            "fertilizante_tomate" : [],
+            "fungicida_aplicação2_tomate" : [],
+            "inseticida_aplicação2_tomate" : [],
+            "ir3_dia_tomate" : [],
+            "ir3_semana_tomate" : [],
+            "ir3_mes_tomate" : [],
+            "ir3_total_tomate" : [],
+            "ir4_dia_tomate" : [],
+            "ir4_semana_tomate" : [],
+            "ir4_mes_tomate" : [],
+            "ir_total_tomate" : [],
+            "num_total_tomates" : []}
+        while True:
+            print('\n====== Menu de Tomate ======')
+            print("1. Informação Gerais")
+            print("2. Cálculos base para a plantação")
+            print("3. Dados estatísticos")
+            print("4. Deletar uma área")
+            print("5. Relatório")
+            print("6. Voltar ao menu principal")
+            op = input("Escolha uma opção:")
+            print("recomendamos que siga as opções na ordem")
+            if op == "1":
+                print("Informações gerais sobre o cultivo de tomate.")
+                print("O tomate é uma fruta amplamente cultivada e consumida em todo o mundo. \n Sua importância na alimentação humana se deve ao seu sabor característico, alto valor nutricional e versatilidade culinária.")
+                print("Importância Econômica: \n Alimentação \nIndústria\nAgricultura.")
+                print("A cultura do tomate é dividida em 4 fases que duram 6 meses sendo elas: \n 1°Fase plantiu e estabelecimento da buda no solo(1 meses) \n 2°Fase Crescimento Vegetativo (2 meses)\n 3°Fase Floração e Frutificação (2 meses)\n 4°Fase Maturação e Colheita (1 meses)")
+                print("O tomate é uma fruta que precisa ser regada periódicamnete, por isso é ideal que a quantidade idael de água por dia seja dividida em 2 períodos, manhã e noite")
+                print("O período idela para o ínicio da plnatação é o mês de setembro, pois os proximos dois meses são muito chuvosos, o que é muito bom porque o tomate é uma fruta que precisa de muita água")
+                print("Por fim é importante resalatr que o tomate é uma fruta muito versatil e quese adapata muito bem as diversos tipos de solo e clima")
+            elif op == "2":
+                # Cálculos de área total, área útil, número de ruas e número de mudas
+                print("É importante resaltar que um ciclo completo do tomate dura 6 meses e é dividido em 4 fases")
+                print("As mudas possuem um espaçamento de 1m entre elas, e para cada 10.000m² a plantação possui 50 ruas de 1 metro de comprimento.")
+                area_total_tomate = float(input("Digite a área disponível para plantação em m²:"))
+                if area_total_tomate <= 0:
+                    print('A área deve ser um valor positivo. Tente novamente.')
+                    area_total_tomate = float(input("Digite a área disponível para plantação em m²:"))
+                else:
+                    area_ut_tomate = (area_total_tomate * 0.25)
+                num_ruas_tomate = (area_total_tomate / 10000 * 50)
+                #vetores
+                areas_tomate.append(area_total_tomate)  # Adiciona a área à lista
+                dados_tomate["area_ut_tomate"].append(area_ut_tomate)
+                dados_tomate["num_ruas_tomate"].append(num_ruas_tomate)
+                print(f"A área útil da plantação é {area_ut_tomate:.2f} m²")
+                print(f"O número de ruas da plantação é de {num_ruas_tomate:.2f} ruas")
+                # Adicionando aos vetores
+                # Fase 1 - Plantação
+                print("A primeira fase da plantação de tomate dura 1 mês e consiste na plantação das mudas e no estabelecimento das mesmas no solo.")
+                print("Insumos necessários: mudas, adubo de base, calcário para corrigir o pH do solo e água.")
+                # Número de mudas
+                num_mudas_tomate = area_total_tomate * 2
+                # Cálculo da quantidade de calcário (toneladas por hectare)
+                v1 = 0.5  # 50%
+                v2 = 0.75  # 75%
+                t = 50
+                prnt = 0.7  # 70%
+                calcário1_tomate = ((v2 - v1) * t / prnt)
+                calcário_tomate = ((v2 - v1) * t / prnt) * ( area_total_tomate / 10000) # Convertendo área total para hectares
+                #adubo
+                adubo_base_tomate = 0.85 * area_total_tomate
+                # irrigação
+                ir1_dia_tomate = 5 * area_total_tomate
+                ir1_semana_tomate = ir1_dia_tomate * 7
+                ir1_mes_tomate = ir1_semana_tomate * 4
+                print(f"O número de mudas a serem plantadas é de {num_mudas_tomate:.2f} mudas, lembrando que deve ser platada 2 mudas por m²")
+                print(f" A quantidade de cacário por hectar é de  {calcário1_tomate:.2f} toneladas(t) e a quantidade total de calcário necessária para corrigir o pH do solo é de {calcário_tomate:.2f} toneladas ")
+                print(f"A quantidedade necessária de adubo por m² é de 0.85kg e a quantidade total de adubo necessária é de {adubo_base_tomate:.2f} kg")
+                print(f"A quantidade de água utilizada por dia é de {ir1_dia_tomate:.2f} L/M², por semana {ir1_semana_tomate:.2f} L/M² e por mês {ir1_mes_tomate:.2f} L/M²")
+                print(f"Na primeira fase, será utilizado um total de {ir1_mes_tomate:.2f} L de água.")
+                # Adicionando aos vetores
+                dados_tomate["num_mudas_tomate"].append(num_mudas_tomate)
+                dados_tomate["calcário_tomate"].append(calcário_tomate)
+                dados_tomate["adubo_base_tomate"].append(adubo_base_tomate)
+                dados_tomate["ir1_dia_tomate"].append( ir1_dia_tomate)
+                dados_tomate["ir1_semana_tomate"].append(ir1_semana_tomate)
+                dados_tomate["ir1_mes_tomate"].append( ir1_mes_tomate)
+                # Fase 2
+                print("A segunda fase dura 2 meses e consiste no crescimento vegetativo.")
+                print( "Insumos necessários: adubo foliar, fertilizante, fungicida (1ª aplicação), inseticida (1ª aplicação) e água.")
+                adubo_foliar_tomate = (area_total_tomate / 10) * 1
+                fertilizante_tomate = 0.7 * area_total_tomate
+                fungicida_aplicação1_tomate = 1.5 * (area_total_tomate / 10000)
+                inseticida_aplicação1_tomate = 1.5 * (area_total_tomate / 10000)
+                # irrigação
+                ir2_dia_tomate = 8 * area_total_tomate
+                ir2_semana_tomate = ir2_dia_tomate * 7
+                ir2_mes_tomate = ir2_semana_tomate * 4
+                ir2_total_tomate = ir2_mes_tomate * 2
+                print(f"A quantidade necessária de adubo foliar é de 1kg á cada 10 m² e a quantidade total de adubo foliar necessária é de {adubo_foliar_tomate:.2f} kg")
+                print(f"A quantidade necessária de fertilizante é de 0.7 kg por m² e a quantidade total de fertilizante necessária é de  {fertilizante_tomate:.2f} kg")
+                print(f"A quantidade necessária de fungicida (1ª aplicação)  é de 1.5L por m² e a quantidade total necessária de fungicida (1ª aplicação) é de {fungicida_aplicação1_tomate:.2f} L")
+                print(f"A quantidade necessária de inseticida (1ª aplicação)  é de 1.5L por m² e a quantidade total necessária de inseticida (1ª aplicação) é de {inseticida_aplicação1_tomate:.2f} L")
+                print(f"A quantidade de água utilizada por dia é de {ir2_dia_tomate:.2f} L/M², por semana {ir2_semana_tomate:.2f} L/M² e por mês {ir2_mes_tomate:.2f} L/M²")
+                print(f"Na segunda fase, será utilizado um total de {ir2_total_tomate:.2f} L de água.")
+                 # Adicionando aos vetores
+                dados_tomate['adubo_foliar_tomate'].append(adubo_foliar_tomate)
+                dados_tomate['fertilizante_tomate'].append(fertilizante_tomate)
+                dados_tomate['fungicida_aplicação1_tomate'].append(fungicida_aplicação1_tomate)
+                dados_tomate['inseticida_aplicação1_tomate'].append(inseticida_aplicação1_tomate)
+                dados_tomate["ir2_dia_tomate"].append( ir2_dia_tomate)
+                dados_tomate["ir2_semana_tomate"].append(ir2_semana_tomate)
+                dados_tomate["ir2_mes_tomate"].append( ir2_mes_tomate)
+                dados_tomate["ir2_total_tomate"].append( ir1_mes_tomate)
+                # Fase 3
+                print("A terceira fase dura 2 meses e consiste na floração e frutificação.")
+                print("Insumos necessários: adubo foliar, fertilizante, fungicida (2ª aplicação), inseticida (2ª aplicação) e água.")
+                adubo_foliar_tomate = (area_total_tomate / 10) * 1
+                fertilizante_tomate = 0.7 * area_total_tomate
+                fungicida_aplicação2_tomate = 1.0 * (area_total_tomate / 10000)
+                inseticida_aplicação2_tomate = 1.0 * (area_total_tomate / 10000)
+                # irrigação
+                ir3_dia_tomate = 9 * area_total_tomate
+                ir3_semana_tomate = ir3_dia_tomate* 7
+                ir3_mes_tomate = ir3_semana_tomate * 4
+                ir3_total_tomate = ir3_mes_tomate * 2
+                print(f"A quantidade necessária de adubo foliar é de 1kg á cada 10 m² e a quantidade necessária de adubo foliar é de {adubo_foliar_tomate:.2f} kg")
+                print(f"A quantidade necessária de fertilizante é de 0.7 kg por m² e a quantidade total de fertilizante necessária é de  {fertilizante_tomate:.2f} kg")
+                print(f"A quantidade necessária de fungicida (2ª aplicação)  é de 1.5L por m² e a quantidade total necessária de fungicida (2ª aplicação) é de {fungicida_aplicação2_tomate:.2f} L")
+                print(f"A quantidade necessária de inseticida (2ª aplicação)  é de 1.5L por m² e a quantidade total necessária de inseticida (2ª aplicação) é de {inseticida_aplicação2_tomate:.2f} L")
+                print(f"A quantidade de água utilizada por dia é de {ir3_dia_tomate:.2f} L/M², por semana {ir3_semana_tomate:.2f} L/M² e por mês {ir3_mes_tomate:.2f} L/M²")
+                print(f"Na segunda fase, será utilizado um total de {ir3_total_tomate:.2f} L de água.")
+                #vetores:
+                dados_tomate['fungicida_aplicação2_tomate'].append(fungicida_aplicação2_tomate)
+                dados_tomate['inseticida_aplicação2_tomate'].append(inseticida_aplicação2_tomate)
+                dados_tomate["ir3_dia_tomate"].append( ir3_dia_tomate)
+                dados_tomate["ir3_semana_tomate"].append(ir3_semana_tomate)
+                dados_tomate["ir3_mes_tomate"].append( ir3_mes_tomate)
+                dados_tomate["ir3_total_tomate"].append( ir3_mes_tomate)
+                # Fase 4
+                print("A quarta fase consiste na maturação e colheita do tomate, que dura 1 mês.")
+                print("O único insumo necessário é água.")
+                # irrigação
+                ir4_dia_tomate = 6.5 * area_total_tomate
+                ir4_semana_tomate = ir4_dia_tomate * 7
+                ir4_mes_tomate = ir4_semana_tomate * 4
+                print(f"A quantidade de água utilizada por dia é de {ir4_dia_tomate:.2f} L/M², por semana {ir4_semana_tomate:.2f} L/M² e por mês {ir4_mes_tomate:.2f} L/M²")
+                print(f"Na quarta fase, será utilizado um total de {ir4_mes_tomate:.2f} L de água.")
+                # Adicionando aos vetores
+                dados_tomate["ir4_dia_tomate"].append( ir4_dia_tomate)
+                dados_tomate["ir4_semana_tomate"].append(ir4_semana_tomate)
+                dados_tomate["ir4_mes_tomate"].append( ir4_mes_tomate)
+                # Considerações finais
+                ir_total_tomate = ir1_mes_tomate + ir2_total_tomate + ir3_total_tomate + ir4_mes_tomate
+                num_total_tomates = 5 * num_mudas_tomate
+                dados_tomate['ir_total_tomate'].append(ir_total_tomate)
+                dados_tomate['num_total_tomates'].append(num_total_tomates)
+                print(f"A quantidade total de água utilizada em um ciclo completo do tomate é de {ir_total_tomate:.2f} L.")
+                print(f"Num ciclo completo do tomate, são produzidos {num_total_tomates:.2f} kg de tomate.")
+                print("Todos os insumos necessários para o cultivo do tomate foram calculados.")
+                print(areas_tomate)
+                print(dados_tomate)
+            elif op == "3":
+                # print("R")
+                # Criando um vetor em R
+                r = robjects.r
+                data = r.c(ir1_mes_tomate, ir2_total_tomate, ir3_total_tomate, ir4_mes_tomate, )
+
+                # Calculando a média e desvio em R Irrigação 6 meses
+                media_irrigacaotomate_mes = r.mean(data)
+                desvio_irrigacaotomate_mes = r.sd(data)
+                print("A média de irrigação/m² é igual a: ", media_irrigacaotomate_mes)
+                print("Com desvio padrão de: ", desvio_irrigacaotomate_mes)
+
+                data = r.c(num_total_tomates, area_ut_tomate)
+
+                # Calculando a média e desvio R Tomate/area util
+                mediatomate_areaut = r.mean(data)
+                desviotomate_areaut = r.sd(data)
+                print("A média de numero de tomates/m² é igual a: ", mediatomate_areaut)
+                print("Com desvio padrão de: ", desviotomate_areaut)
+
+                data = r.c(area_total_tomate, adubo_base_tomate + adubo_foliar_tomate)
+
+                # Calculando a média e desvio R Adubo/area util
+                media_adubotomate_areaut = r.mean(data)
+                desvioadubotomate_areaut = r.sd(data)
+                print("A média de adubação/m² é igual a: ", media_adubotomate_areaut)
+                print("Com desvio padrão de: ", desvioadubotomate_areaut)
+            elif op == "4":
+                if areas_tomate:
+                    for i, area in enumerate(areas_tomate, 1):
+                        print(f"{i}. Área de {area:.2f} m²")# Aqui você pode adicionar os cálculos e relatórios que já estava fazendo com base nas áreas
+                else:
+                    print("Não há áreas cadastradas.")
+
+                if areas_tomate:
+                    print("----- Áreas Disponíveis para Exclusão -----")
+                    for i, area in enumerate(areas_tomate, 1):
+                        print(f"{i}. Área de {area:.2f} m²")
+                    try:
+                        escolha = int(input("Escolha o número da área que deseja excluir: "))
+                        if 1 <= escolha <= len(areas_tomate):
+                            area_removida = areas_tomate.pop(escolha - 1)  # Remove a área selecionada
+                            print(f"Área de {area_removida:.2f} m² removida com sucesso!")
+                        else:
+                            print("Opção inválida. Escolha um número válido.")
+                    except ValueError:
+                        print("Por favor, insira um número válido.")
+                else:
+                    print("Não há áreas cadastradas para excluir.")
+                print(areas_tomate)
+            elif op == "5":
+                print("--------------Relatório Tomate--------------")
+                print(f"area total = {area_total_tomate:.2f}m² \n area util = {area_ut_tomate:.2f}m²")
+                print(f"número  de ruas por hectar = 50 ruas por hectar")
+                print(f"número total de ruas = {num_ruas_tomate:.2f} ruas ")
+                print("----1°Fase----")
+                print(f"número  de mudas por m² = 2 muda por m² ")
+                print(f"quantidade de calcário por hectar = {calcário1_tomate:.2f} toneladas por hectar")
+                print(f"quantidade total de  calcário = {calcário_tomate:.2f} toneladas")
+                print(f"quantidade de água por m² = 5 L/M² \n quantidade total de água por dia = {ir1_dia_tomate:.2f} L/M² \n quantidade total de água por semna = {ir1_semana_tomate:.2f} \n quantidade total de água por mês = {ir1_semana_tomate:.2f} L/M² \n quantidade total de água nessa fase {ir1_semana_tomate:.2f} L/M²")
+                print("----2°Fase----")
+                print(f"quantidade de adubo foliar a cada 10m² = 1kg")
+                print(f"quantidade total de adubo folair = {adubo_foliar_tomate:.2f} kg")
+                print(f"quantidade de fertiliante por m² = 0.7 kg/M²")
+                print(f"quantidade total de fertilizante = {fertilizante_tomate:.2f} kg/m²")
+                print(f"A quantidade de fungicida (1ª aplicação) por m² = 1.5 L/m²")
+                print(f"quantidade total de fungicida (1ª aplicação) = {fungicida_aplicação1_tomate:.2f} L/m²")
+                print(f"A quantidade de inceticida (1ª aplicação) por m² = 1.5 L/m²")
+                print(f"quantidade total de inceticida (1ª aplicação) = {inseticida_aplicação2_tomate:.2f} L/m²")
+                print(f"quantidade de água por m² = 5 L/M² \n quantidade total de água por dia = {ir2_dia_tomate:.2f} L/M² \n quantidade total de água por semna = {ir2_semana_tomate:.2f} \n quantidade total de água por mês = {ir2_semana_tomate:.2f} L/M² \n quantidade total de água nessa fase {ir2_total_tomate:.2f} L/M²")
+                print("----3°Fase----")
+                print(f"quantidade de adubo foliar a cada 10m² = 1kg")
+                print(f"quantidade total de adubo folair = {adubo_foliar_tomate:.2f} kg")
+                print(f"quantidade de fertiliante por m² = 0.7 kg/M²")
+                print(f"quantidade total de fertilizante = {fertilizante_tomate:.2f} kg/m²")
+                print(f"A quantidade de fungicida (2ª aplicação) por m² = 1.0 L/m²")
+                print(f"quantidade total de fungicida (2ª aplicação) = {fungicida_aplicação2_tomate:.2f} L/m²")
+                print(f"A quantidade de inceticida (1ª aplicação) por m² = 1.5 L/m²")
+                print(f"quantidade total de inceticida (1ª aplicação) = {inseticida_aplicação2_tomate:.2f} L/m²")
+                print(f"quantidade de água por m² = 5 L/M² \n quantidade total de água por dia = {ir3_dia_tomate:.2f} L/M² \n quantidade total de água por semna = {ir3_semana_tomate:.2f} \n quantidade total de água por mês = {ir3_semana_tomate:.2f} L/M² \n quantidade total de água nessa fase {ir3_total_tomate:.2f} L/M²")
+                print("----4°Fase----")
+                print(f"quantidade de água por m² = 5 L/M² \n quantidade total de água por dia = {ir4_dia_tomate:.2f} L/M² \n quantidade total de água por semna = {ir4_semana_tomate:.2f} \n quantidade total de água por mês = {ir4_semana_tomate:.2f} L/M² \n quantidade total de água nessa fase {ir4_semana_tomate:.2f} L/M²")
+                print(f"quantidade total de água em um cilco completo (6 meses) = {ir_total_tomate:.2f} L")
+                print(f"quantidade de tomates por pé de tomate = 5 kg")
+                print(f"quantidade total de tomates produzidos = {num_total_tomates:.2f} kg")
+                print("----Médias----")
+                print(f"Média de irrigação num ciclo completo (6 meses) =",media_irrigacaotomate_mes)
+                print(f"Média de Adubo, ou seja, adubo de base + adubo foliar, num ciclo completo (6 meses) =",mediatomate_areaut)
+                print(f"Média de tomates por área utili =",media_adubotomate_areaut)
+                print("----Disvio----")
+                print(f"Desvio de água num ciclo completo (6 meses) =",desvio_irrigacaotomate_mes)
+                print(f"Desvio de tomate por área util ciclo completo (6 meses) =",desviotomate_areaut)
+                print(f"Desvio de adubo num ciclo completo (6 meses) = ",desvioadubotomate_areaut)
+            elif op == "6":
+                print("Voltando para o menu principar. Obrigado por escolher essa colheita!")
+                break
+            else:
+                print("Opção invalida")
+
+    elif op == "2":
+        #Vetores:
+        areas_cafe = []  # Lista para armazenar as áreas de plantação de café
+        dados_cafe = {
+            "area_ut_café":[],
+            "num_ruas_café":[],
+            "num_pes_café":[],
+            "calcário2_café":[],
+            "insetcida_aplicação1_ano1_café":[],
+            "insetcida_aplicação2_ano1_café":[],
+            "insetcida_aplicação1_ano2_café":[],
+            "fungicida_aplicação1_ano1_café":[],
+            "fungicida_aplicação2_ano1_café":[],
+            "fungicida_aplicação1_ano2_café":[],
+            "ir1_dia_café":[],
+            "ir1_semana_café":[],
+            "ir1_mes_café":[],
+            "ir1_semestre_café":[],
+            "ir1_ano_café":[],
+            "ir1_total_café":[],
+            "adubo_cobertura_café":[],
+            "insetcida_aplicação2_ano2_café":[],
+            "insetcida_aplicação1_ano3_café":[],
+            "insetcida_aplicação2_ano3_café":[],
+            "fungicida_aplicação2_ano2_café":[],
+            "fungicida_aplicação1_ano3_café":[],
+            "fungicida_aplicação2_ano3_café":[],
+            "fertilizantes_foliares_café":[],
+            "ir2_dia_café":[],
+            "ir2_semana_café":[],
+            "ir2_mes_café":[],
+            "ir2_semestre_café":[],
+            "ir2_ano_café":[],
+            "ir2_total_café":[],
+            "inseticida_aplicação_unica_4ano_café":[],
+            "fungicida_aplicação_unica_4ano_café":[],
+            "ir3_dia_café":[],
+            "ir3_semana_café":[],
+            "ir3_mes_café":[],
+            "ir3_semestre_café":[],
+            "ir3_ano_café":[],
+            "ir_total_café":[],
+            "num_total_gãos_café":[],
+            }
+        while True:
+            print('\n====== Menu de Café ======')
+            print("1. Informação Gerais")
+            print("2. Cálculos base para a plantação")
+            print("3. Dados estatísticos")
+            print("4. Deletar um valor da área")
+            print("5. Relatório")
+            print("6. Voltar para o menu principal")
+            op = input("Escolha uma opção: ")
+            print("recomendamos que siga as opções na ordem")
+            if op == "1":
+                print("Informações gerais sobre o cultivo de café.")
+                print("O café é uma das bebidas mais consumidas no mundo, com um papel socioeconômico e cultural significativo.\n Sua produção envolve diversos processos, desde o cultivo até o processamento e comercialização dos grãos.")
+                print("Importância Econômica: O café é um dos produtos agrícolas mais importantes do mundo, gerando bilhões de dólares em receita anual.\n O Brasil é o maior produtor mundial de café.")
+                print("A cultura do café é dividida em 3 fases que duram 4 anos no total sendo elas: 1°Fase - Plantio e Estabelecimento (1ano e 6 meses)\n 2°Fase - Primeira Floração e Frutificação (1ano e 6 meses)\n 3°Fase - Maturação dos Frutos e Primeira Colheita (1ano)")
+                print("Por fim é importante resalatr que o café é um grão importante para a história do país e é importante até hoje")
+            elif op == "2":
+                # Cálculos de área total, área útil, número de ruas e número de mudas
+                print("É importante resaltar que um ciclo completo do café dura 4 anos e é dividido em 3 fases")
+                print("Os pés de café possuem um espaçamento de 1m entre eles, e para cada 10.000m² a plantação possui 50 ruas de 1 metro de comprimento.")
+                area_total_café = float(input("Digite a área disponível para plantação em m²: "))
+                if area_total_café <= 0:
+                    print('A área deve ser um valor positivo. Tente novamente.')
+                    area_total_café = float(input("Digite a área disponível para plantação em m²: "))
+                else:
+                    area_ut_café = area_total_café * 0.25
+                num_ruas_café = (area_total_café/ 10000) * 50
+                #vetores
+                areas_cafe.append(area_total_café)  # Adiciona a área à lista
+                dados_cafe["area_ut_café"].append(area_ut_café)
+                dados_cafe["num_ruas_café"].append(num_ruas_café)
+                print(f"A área útil da plantação é {area_ut_café:.2f} m²")
+                print(f"O número de ruas da plantação é de {num_ruas_café:.2f} ruas")
+                # Fase 1
+                print("A primeira fase da plantação do café dura 1 ano e meio (18 mesês) e consiste na plantação dos pés de café e no estabelecimento dos mesmos no solo")
+                print("Insumos necessários: mudas, fungicida, inseticida , calcário para corrigir o pH do solo e água.")
+                # Número de mudas
+                num_pes_café = area_total_café * 1
+                # Cálculo da quantidade de calcário (toneladas por hectare)
+                v1 = 0.55 # 55%
+                v2 = 0.85  # 75%
+                t = 65
+                prnt = 0.80  # 80%
+                calcário_café = ((v2 - v1) * t / prnt)
+                calcário2_café = ((v2 - v1) * t / prnt) * (area_total_café / 10000)  # Convertendo área total para hectares
+                # Calculo do inseticida(L/Ha)
+                inseticida_aplicação1_ano1_café = 2.5 * (area_total_café/10000)
+                inseticida_aplicação2_ano1_café = 2.0 * (area_total_café/10000)
+                inseticida_aplicação1_ano2_café = 1.5 * (area_total_café/10000)
+                # Cauculo do fungicida(L/Ha)
+                fungicida_aplicação1_ano1_café = 2.5 * (area_total_café/10000)
+                fungicida_aplicação2_ano1_café = 2.0 * (area_total_café/10000)
+                fungicida_aplicação1_ano2_café = 1.5 * (area_total_café/10000)
+                #irrigação
+                ir1_dia_café = 6.5 * area_total_café
+                ir1_semana_café = ir1_dia_café * 7
+                ir1_mes_café= ir1_semana_café * 4
+                ir1_semestre_café = ir1_mes_café * 6
+                ir1_ano_café = ir1_semestre_café * 2
+                ir1_total_café = ir1_semestre_café + ir1_ano_café
+                #vetores
+                dados_cafe["num_pes_café"].append(num_pes_café)
+                dados_cafe["calcário2_café"].append(calcário2_café)
+                dados_cafe["insetcida_aplicação1_ano1_café"].append(inseticida_aplicação1_ano1_café)
+                dados_cafe["insetcida_aplicação2_ano1_café"].append(inseticida_aplicação2_ano1_café)
+                dados_cafe["insetcida_aplicação1_ano2_café"].append(inseticida_aplicação1_ano2_café)
+                dados_cafe["fungicida_aplicação1_ano1_café"].append(fungicida_aplicação1_ano1_café)
+                dados_cafe["fungicida_aplicação1_ano2_café"].append(fungicida_aplicação2_ano1_café)
+                dados_cafe["fungicida_aplicação1_ano1_café"].append(fungicida_aplicação1_ano2_café)
+                dados_cafe["ir1_dia_café"].append(ir1_dia_café)
+                dados_cafe["ir1_semana_café"].append(ir1_semana_café)
+                dados_cafe["ir1_mes_café"].append(ir1_mes_café)
+                dados_cafe["ir1_semestre_café"].append(ir1_semestre_café)
+                dados_cafe["ir1_ano_café"].append(ir1_ano_café)
+                dados_cafe["ir1_total_café"].append(ir1_total_café)
+                print(f"Deve ser plantado 1 pé de café por m² e o número total de pés de café a serem plantadas é de {num_pes_café:.2f} pés de café")
+                print(f"A quantidade de cacário por hectar é de  {calcário_café:.2f} toneladas(t) e a quantidade total de calcário necessária para corrigir o pH do solo é de {calcário2_café:.2f} toneladas ")
+                print(f"Na 1° aplicação de inseticida deve ser aplicado 2.5 L por hectar totalizando {inseticida_aplicação1_ano1_café} L de inseticidas")
+                print(f"Na 2° aplicação de inseticida deve ser aplicado 2.0 L por hectar totalizando {inseticida_aplicação2_ano1_café} L de inseticidas")
+                print(f"Na 3° aplicação de inseticida deve ser aplicado 1.5 L por hectar totalizando {inseticida_aplicação1_ano2_café} L de inseticidas")
+                print(f"Na 1° aplicação de fungicida deve ser aplicado 2.5 L por hectar totalizando {fungicida_aplicação1_ano1_café} L de fungicida")
+                print(f"Na 2° aplicação de fungicida deve ser aplicado 2.0 L por hectar totalizando {fungicida_aplicação2_ano1_café} L de fungicida")
+                print(f"Na 3° aplicação de fungicida deve ser aplicado 1.5 L por hectar totalizando {fungicida_aplicação1_ano2_café} L de fungicida")
+                print(f"A quantidade de água utilizada por dia é de {ir1_dia_café:.2f} L/M², por semana é de {ir1_semana_café:.2f} L/M²,  por mês é de {ir1_mes_café:.2f} L/M², por semestre é de {ir1_semestre_café:.2f} L/M², por ano é de {ir1_ano_café:.2f}L/M²")
+                print(f"Na primeira fase, será utilizado um total de {ir1_total_café:.2f} L de água.")
+                #fase2
+                print("A segunda fase da plantação do café dura 1 ano e meio (18 mesês) e consiste na primeira floração frutificação.")
+                print("Insumos necessários: adubo de cobertura,fungicida, inseticida, fertlizantes florais e irrigação.")
+                #adubo - kg/pé de café
+                adubo_cobertura_café = 1.2 * num_pes_café
+                # Calculo do inseticida(L/Ha)
+                inseticida_aplicação2_ano2_café = 2.0 * (area_total_café/10000)
+                inseticida_aplicação1_ano3_café = 2.5 * (area_total_café/10000)
+                inseticida_aplicação2_ano3_café = 2.0 * (area_total_café/10000)
+                # Cauculo do fungicida(L/Ha)
+                fungicida_aplicação2_ano2_café = 2.0 * (area_total_café/10000)
+                fungicida_aplicação1_ano3_café = 2.5 * (area_total_café/10000)
+                fungicida_aplicação2_ano3_café = 2.0 * (area_total_café/10000)
+                #fertilizantes foliares
+                fertilizantes_foliares_café = 1.5 * num_pes_café
+                #irrigação
+                ir2_dia_café = 8.5 * area_total_café
+                ir2_semana_café = ir2_dia_café * 7
+                ir2_mes_café = ir2_semana_café * 4
+                ir2_semestre_café = ir2_mes_café * 6
+                ir2_ano_café = ir2_semestre_café * 2
+                ir2_total_café = ir2_semestre_café + ir2_ano_café
+                #vetores
+                dados_cafe["adubo_cobertura_café"].append(adubo_cobertura_café)
+                dados_cafe["insetcida_aplicação2_ano2_café"].append(inseticida_aplicação2_ano2_café)
+                dados_cafe["insetcida_aplicação1_ano3_café"].append(inseticida_aplicação1_ano3_café)
+                dados_cafe["insetcida_aplicação2_ano3_café"].append(inseticida_aplicação2_ano3_café)
+                dados_cafe["fungicida_aplicação2_ano3_café"].append(fungicida_aplicação2_ano2_café)
+                dados_cafe["fungicida_aplicação1_ano2_café"].append(fungicida_aplicação1_ano3_café)
+                dados_cafe["fungicida_aplicação1_ano1_café"].append(fungicida_aplicação2_ano3_café)
+                dados_cafe["ir2_dia_café"].append(ir2_dia_café)
+                dados_cafe["ir2_semana_café"].append(ir2_semana_café)
+                dados_cafe["ir2_mes_café"].append(ir2_mes_café )
+                dados_cafe["ir2_semestre_café"].append(ir2_semestre_café)
+                dados_cafe["ir2_ano_café"].append(ir2_ano_café)
+                dados_cafe["ir2_total_café"].append(ir2_total_café)
+                print(f"Deve ser plantado 1.2Kg de adubo de cobertura por pé e o número total de adubo de base é de {adubo_cobertura_café:.2f} pés de café")
+                print(f"A quantidade de cacário por hectar é de  {calcário_café:.2f} toneladas(t) e a quantidade total de calcário necessária para corrigir o pH do solo é de {calcário2_café:.2f} toneladas ")
+                print(f"Na 1° aplicação de inseticida deve ser aplicado 2.0 L por hectar totalizando {inseticida_aplicação2_ano2_café} L de inseticidas")
+                print(f"Na 2° aplicação de inseticida deve ser aplicado 2.5 L por hectar totalizando {inseticida_aplicação1_ano3_café} L de inseticidas")
+                print(f"Na 3° aplicação de inseticida deve ser aplicado 2.0 L por hectar totalizando {inseticida_aplicação2_ano3_café} L de inseticidas")
+                print(f"Na 1° aplicação de fungicida deve ser aplicado 2.0 L por hectar totalizando {fungicida_aplicação2_ano2_café} L de fungicida")
+                print(f"Na 2° aplicação de fungicida deve ser aplicado 2.5 L por hectar totalizando {fungicida_aplicação1_ano3_café} L de fungicida")
+                print(f"Na 3° aplicação de fungicida deve ser aplicado 2.0 L por hectar totalizando {fungicida_aplicação2_ano3_café} L de fungicida")
+                print(f"A quantidade de água utilizada por dia é de {ir1_dia_café:.2f} L/M², por semana é de {ir1_semana_café:.2f} L/M²,  por mês é de {ir1_mes_café:.2f} L/M², por semestre é de {ir1_semestre_café:.2f} L/M², por ano é de {ir1_ano_café:.2f}L/M²")
+                print(f"Na primeira fase, será utilizado um total de {ir1_total_café:.2f} L de água.")
+                #fase3
+                print("A terceira fase da plantação do café dura 1 ano (12 meses) e consiste na maturação dos frutos e na primeira colheita.")
+                print("Insumos necessários: inseticida, fungicida e irrigação.")
+                print("Nesta fase só tera uma palicação de fungicida e inseticida que deve ser feita 6 meses após a ultima aplicação")
+                inseticida_aplicação_unica_4ano_café = 2.75 * (area_total_café/10000)
+                fungicida_aplicação_unica_4ano_café = 2.75 * (area_total_café/10000)
+                #irrigação
+                ir3_dia_café = 7.0 * area_total_café
+                ir3_semana_café = ir2_dia_café * 7
+                ir3_mes_café = ir2_semana_café * 4
+                ir3_semestre_café = ir2_mes_café * 6
+                ir3_ano_café = ir2_semestre_café * 2
+                ir_total_café = ir1_total_café + ir2_total_café + ir3_ano_café
+                num_total_gãos_café = 4.5 * num_pes_café
+                #vetores
+                dados_cafe["inseticida_aplicação_unica_4ano_café"].append(inseticida_aplicação_unica_4ano_café)
+                dados_cafe["fungicida_aplicação_unica_4ano_café"].append(fungicida_aplicação_unica_4ano_café)
+                dados_cafe["ir3_dia_café"].append(ir3_dia_café)
+                dados_cafe["ir3_semana_café"].append(ir3_semana_café)
+                dados_cafe["ir3_mes_café"].append(ir3_mes_café )
+                dados_cafe["ir3_semestre_café"].append(ir3_semestre_café)
+                dados_cafe["ir3_ano_café"].append(ir3_ano_café)
+                dados_cafe["ir_total_café"].append(ir_total_café)
+                dados_cafe["num_total_gãos_café"].append(num_total_gãos_café)
+                print(f"Nesta fase aplicação de inseticida deve ser aplicado 2.75 L por hectar totalizando {inseticida_aplicação2_ano1_café} L de inseticidas")
+                print(f"Nesta fase aplicação de inseticida deve ser aplicado 2.75 L hectar totalizando {inseticida_aplicação1_ano1_café} L de inseticidas")
+                print(f"A quantidade total de água utilizada em um ciclo completo do café é de {ir_total_café:.2f}L")
+                print(f"É produzido 4.5kg de grãos por pé de café e são produzidos no total {num_total_gãos_café:.2f}grãos de café")
+                print(dados_cafe)
+            elif op == "3":
+                # print("R")
+                # Criando um vetor em R
+                r = robjects.r
+                data = r.c(ir1_ano_café, ir2_ano_café, ir3_ano_café)
+                # Calculando a média e desvio em R Irrigação/ano
+                media_irrigacao_ano = r.mean(data)
+                desvio_irrigacao_ano = r.sd(data)
+                print("A média de irrigação/m² é igual a: ", media_irrigacao_ano)
+                print("Com desvio padrão de: ", desvio_irrigacao_ano)
+                data = r.c(num_pes_café, area_ut_café)
+                # Calculando a média e desvio R Café/area util
+                mediacafe_areaut = r.mean(data)
+                desviocafe_areaut = r.sd(data)
+                print("A média de numero de cafe/m² é igual a: ", mediacafe_areaut)
+                print("Com desvio padrão de: ", desviocafe_areaut)
+                data = r.c(area_total_café, adubo_cobertura_café)
+                # Calculando a média e desvio R Adubo/area util
+                media_adubo_areaut = r.mean(data)
+                desvioadubo_areaut = r.sd(data)
+                print("A média de adubação/m² é igual a: ", media_adubo_areaut)
+                print("Com desvio padrão de: ", desvioadubo_areaut)    
+            elif op == "4":
+                if areas_cafe:
+                    for i, area in enumerate(areas_cafe, 1):
+                        print(f"{i}. Área de {area:.2f} m²") # Aqui você pode adicionar os cálculos e relatórios que já estava fazendo com base nas áreas
+                else:
+                    print("Não há áreas cadastradas.")
+                if areas_cafe:
+                    print("----- Áreas Disponíveis para Exclusão -----")
+                    for i, area in enumerate(areas_cafe, 1):
+                        print(f"{i}. Área de {area:.2f} m²")
+                    try:
+                        escolha = int(input("Escolha o número da área que deseja excluir: "))
+                        if 1 <= escolha <= len(areas_cafe):
+                            area_removida = areas_cafe.pop(escolha - 1)  # Remove a área selecionada
+                            print(f"Área de {area_removida:.2f} m² removida com sucesso!")
+                        else:
+                            print("Opção inválida. Escolha um número válido.")
+                    except ValueError:
+                        print("Por favor, insira um número válido.")
+                else:
+                    print("Não há áreas cadastradas para excluir.")
+                print(areas_cafe)
+            elif op =="5":
+                print("--------------Relatório Tomate--------------")
+                print(f"Area total = {area_total_café:.2f}m² \n area util = {area_ut_café:.2f}m²")
+                print(f"Número  de ruas por hectar = 50 ruas por hectar")
+                print(f"Número total de ruas = {num_ruas_café:.2f} ruas ")
+                print("----1°Fase----")
+                print(f"Número de pés por m² = 1 muda por m² ")
+                print(f"Quantidade de calcário por hectar = {calcário_café:.2f} toneladas por hectar")
+                print(f"Quantidade total de  calcário = {calcário2_café:.2f} toneladas")
+                print(f"Quantidade de adubo de cobertura por pé de café = 1.2kg ")
+                print(f"Quantidade total de adubo de cobertura = {adubo_cobertura_café:.2f}")
+                print(f"Na 1° aplicação de inseticida deve ser aplicado 2.5 L por hectar totalizando {inseticida_aplicação1_ano1_café} L de inseticidas")
+                print(f"Na 2° aplicação de inseticida deve ser aplicado 2.0 L por hectar totalizando {inseticida_aplicação2_ano1_café} L de inseticidas")
+                print(f"Na 3° aplicação de inseticida deve ser aplicado 1.5 L por hectar totalizando {inseticida_aplicação1_ano2_café} L de inseticidas")
+                print(f"Na 1° aplicação de fungicida deve ser aplicado 2.5 L por hectar totalizando {fungicida_aplicação1_ano1_café} L de fungicida")
+                print(f"Na 2° aplicação de fungicida deve ser aplicado 2.0 L por hectar totalizando {fungicida_aplicação2_ano1_café} L de fungicida")
+                print(f"Na 3° aplicação de fungicida deve ser aplicado 1.5 L por hectar totalizando {fungicida_aplicação1_ano2_café} L de fungicida")
+                print(f"Quantidade de fertilizante foliar po pé de café = 1.5kg")
+                print(f"Qauntidade total de fertilizante foliar = {fertilizantes_foliares_café:.2f}")
+                print(f"Quantidade de água por m² = 5 L/M² \n quantidade total de água por dia = {ir1_dia_café:.2f} L/M² \n quantidade total de água por semna = {ir1_semana_café:.2f} \n quantidade total de água por mês = {ir1_semana_café:.2f} L/M² \n quantidade total de água por semestre {ir1_semestre_café:.2f} L/M² \n quantidade totla de água por ano {ir1_ano_café:.2f} L/M² \n quantidade total de ága nessa fase {ir1_total_café:.2f} L/M²")
+                print("----2°Fase----")
+                print(f"Quantidade de adubo de cobertura por pé de café = 1.2kg ")
+                print(f"Quantidade total de adubo de cobertura = {adubo_cobertura_café:.2f}")
+                print(f"Na 1° aplicação de inseticida deve ser aplicado 2.0 L por hectar totalizando {inseticida_aplicação2_ano2_café} L de inseticidas")
+                print(f"Na 2° aplicação de inseticida deve ser aplicado 2.5 L por hectar totalizando {inseticida_aplicação1_ano3_café} L de inseticidas")
+                print(f"Na 3° aplicação de inseticida deve ser aplicado 2.0 L por hectar totalizando {inseticida_aplicação2_ano3_café} L de inseticidas")
+                print(f"Na 1° aplicação de fungicida deve ser aplicado 2.0 L por hectar totalizando {fungicida_aplicação2_ano2_café} L de fungicida")
+                print(f"Na 2° aplicação de fungicida deve ser aplicado 2.5 L por hectar totalizando {fungicida_aplicação1_ano3_café} L de fungicida")
+                print(f"Na 3° aplicação de fungicida deve ser aplicado 2.0 L por hectar totalizando {fungicida_aplicação2_ano3_café} L de fungicida")
+                print(f"Quantidade de fertilizante foliar po pé de café = 1.5kg")
+                print(f"Qauntidade total de fertilizante foliar = {fertilizantes_foliares_café:.2f}")
+                print(f"Quantidade de água por m² = 5 L/M² \n quantidade total de água por dia = {ir2_dia_café:.2f} L/M² \n quantidade total de água por semna = {ir2_semana_café:.2f} \n quantidade total de água por mês = {ir2_semana_café:.2f} L/M² \n quantidade total de água por semestre {ir2_semestre_café:.2f} L/M² \n quantidade totla de água por ano {ir2_ano_café:.2f} L/M² \n quantidade total de ága nessa fase {ir2_total_café:.2f} L/M²")
+                print("----3°Fase----")
+                print(f"Aplicação de inseticida deve ser aplicado 2.75 L por hectar totalizando {inseticida_aplicação2_ano1_café} L de inseticidas")
+                print(f"Aplicação de inseticida deve ser aplicado 2.75 L hectar totalizando {inseticida_aplicação1_ano1_café} L de inseticidas")
+                print(f"Quantidade de água por m² = 5 L/M² \n quantidade total de água por dia = {ir3_dia_café:.2f} L/M² \n quantidade total de água por semna = {ir3_semana_café:.2f} \n quantidade total de água por mês = {ir3_semana_café:.2f} L/M² \n quantidade total de água por semestre {ir3_semestre_café:.2f} L/M² \n quantidade totla de água por ano {ir3_ano_café:.2f} L/M² \n quantidade total de ága nessa fase {ir3_ano_café:.2f} L/M²")
+                print(f"quantidade de grãos de cafés por pé de café  = 4.5 kg")
+                print(f"quantidade total grãos de cafés produzidos = {num_total_gãos_café:.2f} kg")
+                print(f"quantidade total de água em um cilco completo (4 anos) = {ir_total_café:.2f} L")
+                print("----Médias----")
+                print(f"Média de irrigação por ano =",media_irrigacao_ano)
+                print(f"Média de Adubo de cobertura por área util =",media_adubo_areaut)
+                print(f"Média de grãos de café por área util = kg",mediacafe_areaut)
+                print("----Disvio----")
+                print(f"Desvio de água por ano =",desvio_irrigacao_ano)
+                print(f"Desvio de grãos de café por área util =",desviocafe_areaut)
+                print(f"Desvio de adubo por área util =",desvioadubo_areaut)
+            elif op == "6":
+                print("Voltando para o menu principar. Obrigado por escolher essa colheita!")
+                break
+            else:
+                print("Opção invalida")
+    elif op == "3":
+        print("Obrigado por utilizar nosso sistema!")
+        break
+    else:
+        print("Opção invalida")
