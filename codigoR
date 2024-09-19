@@ -1,0 +1,52 @@
+from rpy2 import robjects
+# TOMATE
+# print("R")
+                # Criando um vetor em R
+                r = robjects.r
+                data = r.c(ir1_mes_tomate, ir2_total_tomate, ir3_total_tomate, ir4_mes_tomate, )
+
+                # Calculando a média e desvio em R Irrigação 6 meses
+                media_irrigacaotomate_mes = r.mean(data)
+                desvio_irrigacaotomate_mes = r.sd(data)
+                print("A média de irrigação/m² é igual a: ", media_irrigacaotomate_mes)
+                print("Com desvio padrão de: ", desvio_irrigacaotomate_mes)
+
+                data = r.c(num_total_tomates, area_ut_tomate)
+
+                # Calculando a média e desvio R Tomate/area util
+                mediatomate_areaut = r.mean(data)
+                desviotomate_areaut = r.sd(data)
+                print("A média de numero de tomates/m² é igual a: ", mediatomate_areaut)
+                print("Com desvio padrão de: ", desviotomate_areaut)
+
+                data = r.c(area_total_tomate, adubo_base_tomate + adubo_foliar_tomate)
+
+                # Calculando a média e desvio R Adubo/area util
+                media_adubotomate_areaut = r.mean(data)
+                desvioadubotomate_areaut = r.sd(data)
+                print("A média de adubação/m² é igual a: ", media_adubotomate_areaut)
+                print("Com desvio padrão de: ", desvioadubotomate_areaut)
+
+  # CAFE
+
+ # print("R")
+                # Criando um vetor em R
+                r = robjects.r
+                data = r.c(ir1_ano_café, ir2_ano_café, ir3_ano_café)
+                # Calculando a média e desvio em R Irrigação/ano
+                media_irrigacao_ano = r.mean(data)
+                desvio_irrigacao_ano = r.sd(data)
+                print("A média de irrigação/m² é igual a: ", media_irrigacao_ano)
+                print("Com desvio padrão de: ", desvio_irrigacao_ano)
+                data = r.c(num_pes_café, area_ut_café)
+                # Calculando a média e desvio R Café/area util
+                mediacafe_areaut = r.mean(data)
+                desviocafe_areaut = r.sd(data)
+                print("A média de numero de cafe/m² é igual a: ", mediacafe_areaut)
+                print("Com desvio padrão de: ", desviocafe_areaut)
+                data = r.c(area_total_café, adubo_cobertura_café)
+                # Calculando a média e desvio R Adubo/area util
+                media_adubo_areaut = r.mean(data)
+                desvioadubo_areaut = r.sd(data)
+                print("A média de adubação/m² é igual a: ", media_adubo_areaut)
+                print("Com desvio padrão de: ", desvioadubo_areaut)
