@@ -1,0 +1,27 @@
+install.packages("httr")
+library(httr)
+install.packages("openweathermap")
+library(ROpenWeatherMap)
+install.packages(c("jsonlite", "tidyverse"))
+library(jsonlite)
+library(tidyverse)
+
+
+# "api_key" e "cidade"
+api_key <- "7e201e3cddc54cceec8d1f5a65d2a013"
+cidade <- "saopaulo"
+url <- paste0("https://api.openweathermap.org/data/2.5/weather?id=3448439&appid=" ,api_key)
+dados_json <- fromJSON(url)
+
+str(dados_json)
+
+dados_json <- fromJSON(url)
+
+dados_clima <- data.frame(
+  temperatura = dados_json$main$temp,
+  umidade = dados_json$main$humidity,
+  pressao = dados_json$main$pressure,
+  data_hora = as.POSIXct(dados_json$dt, origin = "1970-01-01")
+)
+
+print(dados_clima)
